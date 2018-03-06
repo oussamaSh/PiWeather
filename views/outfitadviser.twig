@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<!-- Mirrored from www.vasterad.com/themes/listeo/pages-coming-soon.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 Mar 2018 19:04:20 GMT -->
+
+<head>
+
+	<!-- Basic Page Needs
+================================================== -->
+	<title>Outfit adviser</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+================================================== -->
+	<link rel="stylesheet" href="../stylesheets/style.css">
+	<link rel="stylesheet" href="../stylesheets/colors/main.css" id="colors">
+
+</head>
+
+<body>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+
+		<!-- Content
+================================================== -->
+
+		<!-- Coming Soon Page -->
+		<div class="coming-soon-page" style="background-image: url(../images/main-search-background-01.jpg)">
+			<div class="container">
+				<!-- Search -->
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2">
+						<img src="../images/logo2.png" alt="">
+
+						<h3>We are launching Listeo soon!</h3>
+
+						<!-- Countdown -->
+						<div id="countdown" class="margin-top-10 margin-bottom-35"></div>
+						<!-- Countdown / End -->
+
+						<br>
+
+						<div class="main-search-input gray-style margin-top-30 margin-bottom-10">
+							<div class="main-search-input-item">
+								<input type="text" placeholder="Your email address" value="" id="address" />
+							</div>
+							<button class="button btn-getToken">Get Token</button>
+						</div>
+
+					</div>
+				</div>
+				<!-- Search Section / End -->
+			</div>
+		</div>
+		<!-- Coming Soon Page / End -->
+
+	</div>
+	<!-- Wrapper / End -->
+
+
+
+	<!-- Scripts
+================================================== -->
+	<script type="text/javascript" src="../javascripts/jquery-2.2.0.min.js"></script>
+	<script type="text/javascript" src="../javascripts/mmenu.min.js"></script>
+	<script type="text/javascript" src="../javascripts/chosen.min.js"></script>
+	<script type="text/javascript" src="../javascripts/slick.min.js"></script>
+	<script type="text/javascript" src="../javascripts/rangeslider.min.js"></script>
+	<script type="text/javascript" src="../javascripts/magnific-popup.min.js"></script>
+	<script type="text/javascript" src="../javascripts/waypoints.min.js"></script>
+	<script type="text/javascript" src="../javascripts/counterup.min.js"></script>
+	<script type="text/javascript" src="../javascripts/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../javascripts/tooltips.min.js"></script>
+	<script type="text/javascript" src="../javascripts/jquery.min.js"></script>
+
+	<script>
+
+
+		$(document).ready(function () {
+			$(window).load(function () {
+
+				var address = null;
+				if (typeof web3 !== 'undefined') {
+					web3 = new Web3(web3.currentProvider);
+				} else {
+					// set the provider you want from Web3.providers
+					web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+				}
+
+				web3.eth.getAccounts(function (error, result) {
+					if (error) {
+						console.log(error);
+					}
+					else {
+						address = result[0];
+						console.log(address);
+						$('#address').val(address);
+					}
+				});
+			});
+
+			
+		});
+
+
+	</script>
+	<script src="../javascripts/web3.min.js"></script>
+	<script src="../javascripts/truffle-contract.js"></script>
+	<script type="text/javascript" src="../javascripts/app.js"></script>
+</body>
+
+<!-- Mirrored from www.vasterad.com/themes/listeo/pages-coming-soon.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 Mar 2018 19:04:35 GMT -->
+
+</html>

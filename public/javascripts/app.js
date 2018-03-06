@@ -1,3 +1,5 @@
+
+
 App = {
   web3Provider: null,
   contracts: {},
@@ -37,7 +39,7 @@ App = {
   },
 
   initContract: function () {
-    $.getJSON('WeatherERC20Token.json', function (data) {
+    $.getJSON('../build/contracts/WeatherERC20Token.json', function (data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract
       var WeatherArtifact = data;
       App.contracts.WeatherERC20Token = TruffleContract(WeatherArtifact);
@@ -53,9 +55,9 @@ App = {
   },
 
   bindEvents: function () {
-    $(document).on('click', '.btn-adopt', App.payForToken);
+    $(document).on('click', '.btn-transferFrom', App.payForToken);
     $(document).on('click', '.btn-approve', App.approveTransfer);
-    $(document).on('click', '.btn-getBalance', App.getBalance);
+    $(document).on('click', '.btn-getToken', App.getBalance);
   },
 
   markPaid: function (adopters, account) {
@@ -94,21 +96,8 @@ App = {
       App.contracts.WeatherERC20Token.deployed().then(function (instance) {
         payInstance = instance;
         var approved;
-        // Execute adopt as a transaction by sending account
-        //payInstance.approve({to: account}, 1);
-        /* var smart_contract_balance = web3.eth.getBalance('0x627306090abaB3A6e1400e9345bC60c78a8BEf57',
-      function (err, result) {
-        if (err) {
-          console.log("error");
-        }
-        else {
-          // return result = toNumber();
-          console.log(result.toNumber());
-        }
-      });*/
-        //var balance = payInstance.balanceOf(account);
-        //console.log(balance);
-        return payInstance.balanceOf.call(account, { from: account });
+        
+        return payInstance.balanceOf.call(account);
       }).then(function (result) {
         console.log(result.toNumber())
         return App.markPaid();
@@ -131,14 +120,14 @@ App = {
         console.log(error);
       }
 
-      var account = accounts[0];
-     
+      var account = "0x7Ca58F260d7a84FBe9ECa5575679a9a1b0a87B4b";
+      var account2 = "0x1fC8E0B41f2b02b107EC52569efb677bccD10Ab1";
       App.contracts.WeatherERC20Token.deployed().then(function (instance) {
         payInstance = instance;
         var approved;
        
-        return payInstance.approve("0xf17f52151EbEF6C7334FAD080c5704D77216b732", 1,
-        {from: "0x627306090abaB3A6e1400e9345bC60c78a8BEf57"});
+        return payInstance.approve(accounts[0], 1,
+        {from: account});
       }).then(function (result) {
         console.log("Transaction successful!");
         return App.markPaid();
@@ -159,8 +148,8 @@ App = {
         console.log(error);
       }
 
-      var account = "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
-      var account2 = "0xf17f52151EbEF6C7334FAD080c5704D77216b732";
+      var account = "0x7Ca58F260d7a84FBe9ECa5575679a9a1b0a87B4b";
+      var account2 = "0x1fC8E0B41f2b02b107EC52569efb677bccD10Ab1";
      console.log(account);
       App.contracts.WeatherERC20Token.deployed().then(function (instance) {
         payInstance = instance;
@@ -170,7 +159,7 @@ App = {
 /*
         }
         else {
-          console.log("wiiiiiiiiiiiiw");
+          console.log("error");
         }*/
       }).then(function (result) {
         alert("Transaction successful!");
@@ -183,12 +172,6 @@ App = {
   }
 
 };
-
-$(function () {
-  $(window).load(function () {
-    App.init();
-  });
-});
 
 
 (function($, document, window){
@@ -226,6 +209,15 @@ $(function () {
 
 	$(window).load(function(){
 
+    if (typeof localStorage === "undefined" || localStorage === null) {
+      var LocalStorage = require('node-localstorage').LocalStorage;
+      localStorage = new LocalStorage('./scratch');
+    }
+
+    App.initWeb3();
+    
+      console.log(document.cookie.user_sid); 
+    
 	});
 
 })(jQuery, document, window);
