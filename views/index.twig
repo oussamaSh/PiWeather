@@ -14,7 +14,7 @@
 ================================================== -->
 	<link rel="stylesheet" href="stylesheets/style.css">
 	<link rel="stylesheet" href="stylesheets/colors/main.css" id="colors">
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -149,48 +149,27 @@
 
 
 					<!-- Right Side Content / End -->
-					<div class="right-side" id="connected">
-						<div class="header-widget">
-							<a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim">
-								<i class="sl sl-icon-login"></i> Profile</a>
+					<div class="connected">
+						<div class="right-side">
+							<div class="header-widget">
+								<a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim">
+									<i class="sl sl-icon-login"></i> Profile</a>
+								<a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim">
+									<i class="sl sl-icon-login"></i> logout</a>
+							</div>
 						</div>
 					</div>
-					<!-- Right Side Content / End -->
-					<!-- Right Side Content / End -->
-					<div class="right-side" id="logout">
-						<div class="header-widget">
-							<a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim">
-								<i class="sl sl-icon-login"></i> logout</a>
-						</div>
-					</div>
-					<!-- Right Side Content / End -->
-					<!-- Right Side Content / End -->
-					<div class="right-side" id="notconnected">
-						<div class="header-widget">
-							<a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim">
-								<i class="sl sl-icon-login"></i> Sign In</a>
-						</div>
-					</div>
-					<!-- Right Side Content / End -->
-					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-					<script type="text/javascript">
-						$(document).ready(function () {
-							$("#notconnected").show()
-							$("#connected").hide();
-							$("#logout").hide();
+					<div class="notconnected">
+						<div class="right-side">
+							<div class="header-widget">
+								<a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim">
+									<i class="sl sl-icon-login"></i> Sign In</a>
+							</div>
+						</div>
+					</div>
 
-							if (localStorage.getItem('connectedUser') != undefined) {
-								$("#connected").show();
-								$("#logout").show();
-								$("#notconnected").hide();
-							} else {
-								$("#notconnected").show()
-								$("#connected").hide();
-								$("#logout").hide();
-							}
-						});
-					</script>
+					<!-- Right Side Content / End -->
 
 					<!-- Sign In Popup -->
 					<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
@@ -907,7 +886,30 @@
 	<script type="text/javascript" src="javascripts/tooltips.min.js"></script>
 	<script type="text/javascript" src="javascripts/custom.js"></script>
 
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$(window).load(function (req, res) {
 
+				function readCookie(name) {
+					var nameEQ = name + "=";
+					var ca = document.cookie.split(';');
+					for (var i = 0; i < ca.length; i++) {
+						var c = ca[i];
+						while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+						if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+					}
+					return null;
+				}
+
+				if (readCookie('user_sid') == null) {
+					$(".connected").attr('hidden', true);
+				} else {
+					$(".connected").removeAttr('hidden');
+					$(".notconnected").attr('hidden', true);
+				}
+			});
+		});
+	</script>
 
 </body>
 

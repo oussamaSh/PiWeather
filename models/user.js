@@ -5,7 +5,7 @@ var userSchema = mongoose.Schema({
     email: { type: String },
     password: { type: String },
     isTokenValid: { type: Boolean },
-    tokenDate: { type: Date, default: Date(Date.now) },
+    tokenDate: { type: Date},
     accountAdresse: { type: String }
 }, { collection: "userCustom" });
 

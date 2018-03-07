@@ -33,7 +33,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-      expires: 600000
+      expires: 600000,
+      httpOnly: false
   }
 }));
 
@@ -44,13 +45,7 @@ app.use((req, res, next) => {
   next();
 });
 
-var sessionChecker = (req, res, next) => {
-  if (req.session.user && req.cookies.user_sid) {
-      res.redirect('/outfit');
-  } else {
-      next();
-  }    
-};
+
 
 app.use('/', index);
 app.use('/users', users);

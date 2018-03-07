@@ -1,10 +1,8 @@
-
-
 App = {
   web3Provider: null,
   contracts: {},
 
-  init: function () {
+  /*init: function () {
     // Load pets.
     $.getJSON('../pets.json', function (data) {
       var petsRow = $('#petsRow');
@@ -23,7 +21,7 @@ App = {
     });
 
     return App.initWeb3();
-  },
+  },*/
 
   initWeb3: function () {
     // Is there an injected web3 instance?
@@ -110,9 +108,6 @@ App = {
 
   approveTransfer: function () {
     
-
-    //var petId = parseInt($(event.target).data('id'));
-
     var payInstance;
 
     web3.eth.getAccounts(function (error, accounts) {
@@ -153,14 +148,7 @@ App = {
      console.log(account);
       App.contracts.WeatherERC20Token.deployed().then(function (instance) {
         payInstance = instance;
-       // var approved = payInstance.approve(account2, 1,{from: account});
-      //  if(approved == true){
           return payInstance.transferFrom(account,account2, 1, {from: account2});
-/*
-        }
-        else {
-          console.log("error");
-        }*/
       }).then(function (result) {
         alert("Transaction successful!");
         return App.markPaid();
@@ -207,17 +195,13 @@ App = {
 		}
 	});
 
-	$(window).load(function(){
-
-    if (typeof localStorage === "undefined" || localStorage === null) {
-      var LocalStorage = require('node-localstorage').LocalStorage;
-      localStorage = new LocalStorage('./scratch');
-    }
-
-    App.initWeb3();
-    
-      console.log(document.cookie.user_sid); 
-    
-	});
+	
 
 })(jQuery, document, window);
+
+$(window).load(function(req, res){
+
+  App.initWeb3();
+   
+  
+});

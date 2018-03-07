@@ -51,17 +51,14 @@ router.post('/login', function (req, res) {
       else {
         if (bcrypt.compareSync(req.body.password, user.password)) {
           console.log('user connected');
-          //localStorage.setItem('connectedUser',user);
-          req.session.user = user.username;
-         // console.log(JSON.stringify(localStorage.getItem('connectedUser')));
+          req.session.user = user;
          console.log(req.session.user);
-          res.send(localStorage.getItem('connectedUser'));
-          //res.redirect('/');
+          res.redirect('/');
         }
       }
 
     })
-})
+});
 
 router.get('/logout',function(req,res){
   localStorage.removeItem('connectedUser');
